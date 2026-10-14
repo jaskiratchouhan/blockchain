@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.14)
+include_directories(include)
+project(BlockChain VERSION 1.0 LANGUAGES C)
+
+include_directories(include)
+add_executable(blockchain src/main.c src/blockchain.c)
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "amd64|x86_64")
+  set(CHECK_LIB "${CMAKE_SOURCE_DIR}/lib/libcheck-amd64.so")
+else()
+  set(CHECK_LIB "${CMAKE_SOURCE_DIR}/lib/libcheck-arm64.so")
+endif()
+target_link_libraries(blockchain crypto ${CHECK_LIB})
